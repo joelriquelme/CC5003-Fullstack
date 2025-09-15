@@ -1,0 +1,174 @@
+.header {
+    background: #4A4A4A;
+    color: white;
+    padding: 0.5rem 0;
+    font-family: 'Arial', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 100px;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+.siteTitle {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+}
+
+.navContainer {
+    display: flex;
+    align-items: center;
+}
+
+.navButtons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navButton {
+    background: none;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+    border: 2px solid transparent; /* Borde transparente por defecto */
+    border-radius: 6px;
+}
+
+.navButton:hover {
+    color: #ff0000;
+    border-color: #ffffff; /* Borde blanco en hover */
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navButton.active {
+    color: #000000; /* Texto negro */
+    background-color: #ffffff; /* Fondo blanco */
+    border: 2px solid #000000; /* Borde negro */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Quitamos el subrayado que había antes */
+.navButton.active::after {
+    content: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .header-content {
+        padding: 0 1.5rem;
+    }
+
+    .navButtons {
+        gap: 1rem;
+    }
+
+    .navButton {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        position: relative;
+        padding: 1rem 0;
+    }
+
+    body {
+        padding-top: 0;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .logoContainer {
+        justify-content: center;
+    }
+
+    .logo {
+        height: 50px;
+    }
+
+    .siteTitle {
+        font-size: 1.3rem;
+    }
+
+    .navContainer {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navButtons {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navButton {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        padding: 0 0.5rem;
+    }
+
+    .logoContainer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .navButtons {
+        gap: 0.5rem;
+    }
+
+    .navButton {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
