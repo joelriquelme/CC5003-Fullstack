@@ -1,0 +1,271 @@
+.medalleroContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar horizontalmente */
+}
+
+.medalleroTitle {
+    text-align: center;
+    color: #ff0000;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 3px solid #ff0000;
+    padding-bottom: 0.5rem;
+    width: 100%; /* Asegurar que ocupe todo el ancho */
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #666;
+    padding: 3rem;
+}
+
+.tableContainer {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+    max-width: 900px; /* Ancho máximo para la tabla */
+}
+
+.medalleroTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 0.95rem;
+    table-layout: fixed; /* Forzar layout fijo para consistencia */
+}
+
+.medalleroTable th {
+    background-color: #ff0000;
+    color: white;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+.medalleroTable td {
+    padding: 0.8rem;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.rankHeader {
+    width: 60px; /* Reducido ligeramente */
+}
+
+.conHeader {
+    width: 35%; /* Aumentado para acomodar código y nombre */
+    text-align: left;
+}
+
+.medalHeader {
+    width: 60px; /* Reducido para balancear */
+}
+
+.totalHeader {
+    width: 70px;
+}
+
+.pointsHeader {
+    width: 80px;
+}
+
+.rankCell {
+    font-weight: bold;
+    color: darkred;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.conCell {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.countryCode {
+    font-weight: bold;
+    color: darkred;
+    background-color: #e9ecef;
+    padding: 4px 6px;
+    border-radius: 4px;
+    min-width: 35px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.countryName {
+    font-weight: 500;
+    color: #333;
+    flex: 1; /* Permitir que el nombre ocupe el espacio restante */
+}
+
+.medalCell {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.medalCell.gold {
+    color: #ffd700;
+    background-color: #fff9e6;
+}
+
+.medalCell.silver {
+    color: #c0c0c0;
+    background-color: #f8f9fa;
+}
+
+.medalCell.bronze {
+    color: #cd7f32;
+    background-color: #fff4e6;
+}
+
+.totalCell {
+    font-weight: bold;
+    background-color: #e9ecef;
+    color: #ff0000;
+    text-align: center;
+}
+
+.pointsCell {
+    font-weight: bold;
+    color: #ff0000;
+    background-color: #e3f2fd;
+    text-align: center;
+}
+
+/* Estilos para los primeros puestos */
+.top1 {
+    background-color: #fff9e6;
+}
+
+.top2 {
+    background-color: #f8f9fa;
+}
+
+.top3 {
+    background-color: #fff4e6;
+}
+
+.top1 .rankCell {
+    background-color: #ffd700;
+    color: white;
+}
+
+.top2 .rankCell {
+    background-color: #c0c0c0;
+    color: white;
+}
+
+.top3 .rankCell {
+    background-color: #cd7f32;
+    color: white;
+}
+
+.tableFooter {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .medalleroContainer {
+        padding: 1rem;
+    }
+
+    .medalleroTitle {
+        font-size: 1.8rem;
+    }
+
+    .tableContainer {
+        max-width: 100%; /* Permitir que ocupe todo el ancho en móviles */
+    }
+
+    .medalleroTable {
+        font-size: 0.85rem;
+    }
+
+    .medalleroTable th,
+    .medalleroTable td {
+        padding: 0.6rem 0.4rem;
+    }
+
+    .conCell {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+
+    .countryCode {
+        font-size: 0.8rem;
+        padding: 2px 4px;
+    }
+
+    .medalCell {
+        font-size: 1rem;
+    }
+
+    /* Ajustar anchos de columnas en móviles */
+    .rankHeader {
+        width: 50px;
+    }
+
+    .medalHeader {
+        width: 50px;
+    }
+
+    .totalHeader {
+        width: 60px;
+    }
+
+    .pointsHeader {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .medalleroTable {
+        font-size: 0.75rem;
+    }
+
+    .medalleroTable th,
+    .medalleroTable td {
+        padding: 0.5rem 0.3rem;
+    }
+
+    .medalleroTitle {
+        font-size: 1.5rem;
+    }
+
+    /* Ocultar columnas menos importantes en móviles muy pequeños */
+    .totalHeader,
+    .pointsHeader {
+        display: none;
+    }
+
+    .totalCell,
+    .pointsCell {
+        display: none;
+    }
+
+    .conHeader {
+        width: 50%; /* Más espacio para los nombres */
+    }
+}
