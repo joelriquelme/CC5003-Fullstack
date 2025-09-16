@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Medallero.module.css';
+import DataTable, { type TableColumn} from 'react-data-table-component';
 
 // Interfaces para los datos
 interface Medals {
@@ -90,11 +91,109 @@ const sampleData: DepartmentData[] = [
     }
 ];
 
+const columns: TableColumn<DepartmentData>[] = [
+    {
+        name: 'Rank',
+        selector: (_row, index) => (index !== undefined ? index + 1 : '-'),
+        width: '70px',
+        center: true,
+        cell: (_row, index) => {
+            let bg = 'transparent';
+            let color = 'inherit';
+            if (index === 0) {
+                bg = '#FFD700';
+                color = '#fff';
+            } else if (index === 1) {
+                bg = '#C0C0C0';
+                color = '#fff';
+            } else if (index === 2) {
+                bg = '#CD7F32';
+                color = '#fff';
+            }
+            return (
+                <span
+                    style={{
+                        fontWeight: 'bold',
+                        color,
+                        background: bg,
+                        borderRadius: 6,
+                        padding: '4px 10px',
+                        display: 'inline-block',
+                    }}
+                >
+                    {index !== undefined ? index + 1 : '-'}
+                </span>
+            );
+        },
+        sortable: false,
+        grow: 0.5,
+    },
+    {
+        name: 'Carrera',
+        selector: row => row.name,
+        minWidth: '220px',
+        cell: row => (
+            <div className={styles.conCell}>
+                <span className={styles.countryCode}>{row.code}</span>
+                <span className={styles.countryName}>{row.name}</span>
+            </div>
+        ),
+        sortable: true,
+        wrap: true,
+    },
+    {
+        name: 'Oro',
+        selector: row => row.medals.gold,
+        center: true,
+        cell: row => (
+            <span>{row.medals.gold}</span>
+        ),
+        sortable: true,
+        width: '80px',
+    },
+    {
+        name: 'Plata',
+        selector: row => row.medals.silver,
+        center: true,
+        cell: row => (
+            <span>{row.medals.silver}</span>
+        ),
+        sortable: true,
+        width: '80px',
+    },
+    {
+        name: 'Bronce',
+        selector: row => row.medals.bronze,
+        center: true,
+        cell: row => (
+            <span>{row.medals.bronze}</span>
+        ),
+        sortable: true,
+        width: '110px',
+        minWidth: '110px',
+    },
+    {
+        name: 'Total',
+        selector: row => row.total,
+        center: true,
+        cell: row => <span className={styles.totalCell}>{row.total}</span>,
+        sortable: true,
+        width: '90px',
+    },
+    {
+        name: 'Puntos',
+        selector: row => row.points,
+        center: true,
+        cell: row => <span className={styles.pointsCell}>{row.points}</span>,
+        sortable: true,
+        width: '100px',
+    },
+];
+
 const Medallero: React.FC = () => {
     const [data, setData] = useState<DepartmentData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    // Simular la obtención de datos
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -114,51 +213,46 @@ const Medallero: React.FC = () => {
         fetchData();
     }, []);
 
-    if (loading) {
-        return (
-            <div className={styles.medalleroContainer}>
-                <div className={styles.loading}>Cargando medallero...</div>
-            </div>
-        );
-    }
-
     return (
         <div className={styles.medalleroContainer}>
             <h1 className={styles.medalleroTitle}>Medallero Universitario</h1>
-
             <div className={styles.tableContainer}>
-                <table className={styles.medalleroTable}>
-                    <thead>
-                    <tr>
-                        <th className={styles.rankHeader}>Rank</th>
-                        <th className={styles.conHeader}>Carrera</th>
-                        <th className={styles.medalHeader}>Oro</th>
-                        <th className={styles.medalHeader}>Plata</th>
-                        <th className={styles.medalHeader}>Bronce</th>
-                        <th className={styles.totalHeader}>Total</th>
-                        <th className={styles.pointsHeader}>Puntos</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {data.map((item, index) => {
-                        const rowClass = index < 3 ? styles[`top${index + 1}`] : '';
-                        return (
-                            <tr key={item.code} className={rowClass}>
-                                <td className={styles.rankCell}>{index + 1}</td>
-                                <td className={styles.conCell}>
-                                    <span className={styles.countryCode}>{item.code}</span>
-                                    <span className={styles.countryName}>{item.name}</span>
-                                </td>
-                                <td className={`${styles.medalCell} ${styles.gold}`}>{item.medals.gold}</td>
-                                <td className={`${styles.medalCell} ${styles.silver}`}>{item.medals.silver}</td>
-                                <td className={`${styles.medalCell} ${styles.bronze}`}>{item.medals.bronze}</td>
-                                <td className={styles.totalCell}>{item.total}</td>
-                                <td className={styles.pointsCell}>{item.points}</td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    progressPending={loading}
+                    noDataComponent="No hay datos"
+                    highlightOnHover
+                    striped
+                    responsive
+                    customStyles={{
+                        headCells: {
+                            style: {
+                                backgroundColor: '#ff0000',
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '1rem',
+                                textAlign: 'center',
+                                whiteSpace: 'normal',
+                                wordBreak: 'break-word',
+                                lineHeight: '1.3',
+                                padding: '12px 6px',
+                            },
+                        },
+                        rows: {
+                            style: {
+                                fontSize: '0.98rem',
+                                minHeight: '48px',
+                            },
+                        },
+                        table: {
+                            style: {
+                                borderRadius: '8px',
+                                overflow: 'hidden',
+                            },
+                        },
+                    }}
+                />
             </div>
         </div>
     );

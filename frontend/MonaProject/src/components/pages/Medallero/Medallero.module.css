@@ -38,49 +38,9 @@
     max-width: 900px; /* Ancho máximo para la tabla */
 }
 
-.medalleroTable {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    font-size: 0.95rem;
-    table-layout: fixed; /* Forzar layout fijo para consistencia */
-}
-
-.medalleroTable th {
-    background-color: #ff0000;
-    color: white;
-    padding: 1rem 0.8rem;
-    text-align: center;
-    font-weight: bold;
-    border: 1px solid #ddd;
-}
-
-.medalleroTable td {
-    padding: 0.8rem;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-.rankHeader {
-    width: 60px; /* Reducido ligeramente */
-}
-
-.conHeader {
-    width: 35%; /* Aumentado para acomodar código y nombre */
-    text-align: left;
-}
-
-.medalHeader {
-    width: 60px; /* Reducido para balancear */
-}
-
-.totalHeader {
-    width: 70px;
-}
-
-.pointsHeader {
-    width: 80px;
-}
+/* Puedes eliminar .medalleroTable, .medalleroTable th, .medalleroTable td si ya no usas la tabla HTML,
+pero conserva los estilos de .rankCell, .conCell, .countryCode, .countryName, .medalCell, .gold, .silver, .bronze, .totalCell, .pointsCell, .top1, .top2, .top3
+ya que se usan en las celdas personalizadas de React Data Table. */
 
 .rankCell {
     font-weight: bold;
@@ -136,7 +96,6 @@
 
 .totalCell {
     font-weight: bold;
-    background-color: #e9ecef;
     color: #ff0000;
     text-align: center;
 }
@@ -144,7 +103,6 @@
 .pointsCell {
     font-weight: bold;
     color: #ff0000;
-    background-color: #e3f2fd;
     text-align: center;
 }
 

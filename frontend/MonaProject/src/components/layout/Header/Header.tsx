@@ -6,13 +6,30 @@ export type TabName = 'Calendario' | 'Medallas' | 'Puntajes' | 'Disciplinas';
 
 export interface HeaderProps {
     initialActiveTab?: TabName;
+    onNavigate: (path: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ initialActiveTab = 'Calendario' }) => {
+const Header: React.FC<HeaderProps> = ({ initialActiveTab = 'Calendario', onNavigate }) => {
     const [activeTab, setActiveTab] = useState<TabName>(initialActiveTab);
 
     const handleTabClick = (tabName: TabName) => {
         setActiveTab(tabName);
+        switch (tabName) {
+            case 'Calendario':
+                onNavigate('/calendario');
+                break;
+            case 'Medallas':
+                onNavigate('/medallero');
+                break;
+            case 'Puntajes':
+                onNavigate('/puntajes');
+                break;
+            case 'Disciplinas':
+                onNavigate('/disciplinas');
+                break;
+            default:
+                break;
+        }
     };
 
     return (
