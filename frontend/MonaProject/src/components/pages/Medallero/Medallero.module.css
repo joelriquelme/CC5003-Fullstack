@@ -34,13 +34,10 @@
     margin-bottom: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Asegurar que ocupe todo el ancho disponible */
-    max-width: 900px; /* Ancho máximo para la tabla */
+    width: 100%; 
+    max-width: 900px; 
 }
 
-/* Puedes eliminar .medalleroTable, .medalleroTable th, .medalleroTable td si ya no usas la tabla HTML,
-pero conserva los estilos de .rankCell, .conCell, .countryCode, .countryName, .medalCell, .gold, .silver, .bronze, .totalCell, .pointsCell, .top1, .top2, .top3
-ya que se usan en las celdas personalizadas de React Data Table. */
 
 .rankCell {
     font-weight: bold;
@@ -70,7 +67,7 @@ ya que se usan en las celdas personalizadas de React Data Table. */
 .countryName {
     font-weight: 500;
     color: #333;
-    flex: 1; /* Permitir que el nombre ocupe el espacio restante */
+    flex: 1; 
 }
 
 .medalCell {
@@ -153,7 +150,7 @@ ya que se usan en las celdas personalizadas de React Data Table. */
     }
 
     .tableContainer {
-        max-width: 100%; /* Permitir que ocupe todo el ancho en móviles */
+        max-width: 100%; 
     }
 
     .medalleroTable {
@@ -180,7 +177,6 @@ ya que se usan en las celdas personalizadas de React Data Table. */
         font-size: 1rem;
     }
 
-    /* Ajustar anchos de columnas en móviles */
     .rankHeader {
         width: 50px;
     }
@@ -212,7 +208,6 @@ ya que se usan en las celdas personalizadas de React Data Table. */
         font-size: 1.5rem;
     }
 
-    /* Ocultar columnas menos importantes en móviles muy pequeños */
     .totalHeader,
     .pointsHeader {
         display: none;
@@ -224,6 +219,6 @@ ya que se usan en las celdas personalizadas de React Data Table. */
     }
 
     .conHeader {
-        width: 50%; /* Más espacio para los nombres */
+        width: 50%; 
     }
 }
