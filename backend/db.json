@@ -1,0 +1,8 @@
+{
+  "medalTable": [
+    { "id": 1, "code": "ING", "name": "Ingeniería Civil", "gold": 7, "silver": 3, "bronze": 2, "points": 140 },
+    { "id": 2, "code": "ADM", "name": "Administración",   "gold": 6, "silver": 2, "bronze": 1, "points": 135 },
+    { "id": 3, "code": "SIS", "name": "Ingeniería de Sistemas", "gold": 5, "silver": 3, "bronze": 2, "points": 120 },
+    { "id": 4, "code": "MED", "name": "Medicina",         "gold": 4, "silver": 6, "bronze": 4, "points": 110 }
+  ]
+}
