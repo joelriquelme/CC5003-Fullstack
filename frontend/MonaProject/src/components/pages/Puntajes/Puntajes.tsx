@@ -1,18 +1,8 @@
 import React, { useMemo, useState } from "react";
 import DataTable, { type TableColumn } from "react-data-table-component";
 import styles from "./Puntajes.module.css";
-import axios from "axios";
-
-// Por disciplina y carrera/departamento
-interface StandingRow {
-  code: string; // abreviatura (ING, MED, etc.)
-  name: string; // nombre carrera/depto
-  discipline: string; // disciplina
-  PJ: number;
-  PG: number;
-  PE: number;
-  PP: number;
-}
+import type { StandingRow } from "../../../services/httpService";
+import httpService from "../../../services/httpService";
 
 // Agregado por carrera/departamento
 interface TableRow {
@@ -26,114 +16,9 @@ interface TableRow {
 }
 
 // Datos de ejemplo
-const sampleByDiscipline: StandingRow[] = [
-  {
-    code: "ING",
-    name: "Ingeniería Civil",
-    discipline: "Fútbol",
-    PJ: 5,
-    PG: 3,
-    PE: 1,
-    PP: 1,
-  },
-  {
-    code: "MED",
-    name: "Medicina",
-    discipline: "Fútbol",
-    PJ: 5,
-    PG: 2,
-    PE: 2,
-    PP: 1,
-  },
-  {
-    code: "ADM",
-    name: "Administración",
-    discipline: "Fútbol",
-    PJ: 5,
-    PG: 2,
-    PE: 1,
-    PP: 2,
-  },
-  {
-    code: "DER",
-    name: "Derecho",
-    discipline: "Fútbol",
-    PJ: 5,
-    PG: 1,
-    PE: 1,
-    PP: 3,
-  },
+const sampleByDiscipline: StandingRow[] =
+  await httpService.getPuntajesPorDisciplina();
 
-  {
-    code: "ING",
-    name: "Ingeniería Civil",
-    discipline: "Básquetbol",
-    PJ: 4,
-    PG: 3,
-    PE: 0,
-    PP: 1,
-  },
-  {
-    code: "MED",
-    name: "Medicina",
-    discipline: "Básquetbol",
-    PJ: 4,
-    PG: 2,
-    PE: 1,
-    PP: 1,
-  },
-  {
-    code: "ADM",
-    name: "Administración",
-    discipline: "Básquetbol",
-    PJ: 4,
-    PG: 1,
-    PE: 1,
-    PP: 2,
-  },
-  {
-    code: "DER",
-    name: "Derecho",
-    discipline: "Básquetbol",
-    PJ: 4,
-    PG: 1,
-    PE: 0,
-    PP: 3,
-  },
-
-  {
-    code: "SIS",
-    name: "Ingeniería de Sistemas",
-    discipline: "Voleibol",
-    PJ: 6,
-    PG: 4,
-    PE: 0,
-    PP: 2,
-  },
-  {
-    code: "MED",
-    name: "Medicina",
-    discipline: "Voleibol",
-    PJ: 6,
-    PG: 3,
-    PE: 1,
-    PP: 2,
-  },
-  {
-    code: "ING",
-    name: "Ingeniería Civil",
-    discipline: "Voleibol",
-    PJ: 6,
-    PG: 3,
-    PE: 0,
-    PP: 3,
-  },
-];
-
-axios.get("api/medalTable").then((res) => {
-  const data: StandingRow[] = res.data;
-  console.log("Puntajes por disciplina:", data);
-});
 // Función para agregar los datos por carrera/departamento
 function aggregate(rows: StandingRow[]): TableRow[] {
   const map = new Map<string, TableRow>();

@@ -17,5 +17,14 @@
     { "code": "SIS", "name": "Ingeniería de Sistemas", "discipline": "Voleibol", "PJ": 6, "PG": 4, "PE": 0, "PP": 2 },
     { "code": "MED", "name": "Medicina",               "discipline": "Voleibol", "PJ": 6, "PG": 3, "PE": 1, "PP": 2 },
     { "code": "ING", "name": "Ingeniería Civil",       "discipline": "Voleibol", "PJ": 6, "PG": 3, "PE": 0, "PP": 3 }
+  ],
+  "disciplinas": [
+    { "id": 1, "name": "Baby Masculino",        "days": ["Mié 01", "Jue 02", "Vie 03"],                   "icon": "Fútbol" },
+    { "id": 2, "name": "Baby Femenino",         "days": ["Vie 03", "Sáb 04"],                             "icon": "Fútbol" },
+    { "id": 3, "name": "Natación",              "days": ["Mar 31", "Jue 02"],                             "icon": "Natación" },
+    { "id": 4, "name": "Tenis",                 "days": ["Dom 29", "Lun 30", "Mar 31", "Mié 01"],         "icon": "Tenis" },
+    { "id": 5, "name": "Básquetbol Masculino",  "days": ["Sáb 21", "Dom 22", "Lun 23", "Mar 24"],         "icon": "Básquetbol" },
+    { "id": 6, "name": "Taca-Taca",             "days": ["Mié 18", "Jue 19", "Vie 20", "Sáb 21", "Dom 22"], "icon": "Taca-Taca" }
   ]
 }
+

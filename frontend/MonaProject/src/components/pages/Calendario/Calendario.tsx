@@ -1,28 +1,44 @@
 import React, { useState } from "react";
 import styles from "./Calendario.module.css";
+import {
+  GiSoccerBall,
+  GiTennisRacket,
+  GiBasketballBall,
+  GiWaterSplash,
+  GiTabletopPlayers,
+} from "react-icons/gi";
+import httpService from "../../../services/httpService";
+import type { DisciplineRow } from "../../../services/httpService";
 
-import { GiSoccerBall, GiTennisRacket, GiBasketballBall, GiWaterSplash, GiTabletopPlayers } from "react-icons/gi";
+const disciplines: DisciplineRow[] = await httpService.getDisciplineRows();
 
-interface Discipline {
-  id: number;
-  name: string;
-  days: string[];
-  icon: React.ReactNode;
-}
-
-const disciplines: Discipline[] = [
-  { id: 1, name: "Baby Masculino", days: ["Mié 01", "Jue 02", "Vie 03"], icon: <GiSoccerBall /> },
-  { id: 2, name: "Baby Femenino", days: ["Vie 03", "Sáb 04"], icon: <GiSoccerBall /> },
-  { id: 3, name: "Natación", days: ["Mar 31", "Jue 02"], icon: <GiWaterSplash /> },
-  { id: 4, name: "Tenis", days: ["Dom 29", "Lun 30", "Mar 31", "Mié 01"], icon: <GiTennisRacket /> },
-  { id: 5, name: "Básquetbol Masculino", days: ["Sáb 21", "Dom 22", "Lun 23", "Mar 24"], icon: <GiBasketballBall /> },
-  { id: 6, name: "Taca-Taca", days: ["Mié 18", "Jue 19", "Vie 20", "Sáb 21", "Dom 22"], icon: <GiTabletopPlayers /> },
-];
+const iconMap = {
+  Fútbol: <GiSoccerBall />,
+  Tenis: <GiTennisRacket />,
+  Básquetbol: <GiBasketballBall />,
+  Natación: <GiWaterSplash />,
+  "Taca-Taca": <GiTabletopPlayers />,
+};
 
 const days = [
-  "Mié 18", "Jue 19", "Vie 20", "Sáb 21", "Dom 22", "Lun 23", "Mar 24",
-  "Mié 25", "Jue 26", "Vie 27", "Sáb 28", "Dom 29", "Lun 30", "Mar 31",
-  "Mié 01", "Jue 02", "Vie 03", "Sáb 04"
+  "Mié 18",
+  "Jue 19",
+  "Vie 20",
+  "Sáb 21",
+  "Dom 22",
+  "Lun 23",
+  "Mar 24",
+  "Mié 25",
+  "Jue 26",
+  "Vie 27",
+  "Sáb 28",
+  "Dom 29",
+  "Lun 30",
+  "Mar 31",
+  "Mié 01",
+  "Jue 02",
+  "Vie 03",
+  "Sáb 04",
 ];
 
 const Calendario: React.FC = () => {
@@ -41,7 +57,9 @@ const Calendario: React.FC = () => {
         {days.map((day) => (
           <button
             key={day}
-            className={`${styles.dayButton} ${activeDay === day ? styles.active : ""}`}
+            className={`${styles.dayButton} ${
+              activeDay === day ? styles.active : ""
+            }`}
             onClick={() => setActiveDay(day)}
           >
             {day}
@@ -58,7 +76,7 @@ const Calendario: React.FC = () => {
                 className={styles.cardHeader}
                 onClick={() => toggleDiscipline(discipline.id)}
               >
-                <span className={styles.icon}>{discipline.icon}</span>
+                <span className={styles.icon}>{iconMap[discipline.icon]}</span>
                 <span>{discipline.name}</span>
                 <span className={styles.arrow}>
                   {openDiscipline === discipline.id ? "▲" : "▼"}
