@@ -4,5 +4,18 @@
     { "id": 2, "code": "ADM", "name": "Administración",   "gold": 6, "silver": 2, "bronze": 1, "points": 135 },
     { "id": 3, "code": "SIS", "name": "Ingeniería de Sistemas", "gold": 5, "silver": 3, "bronze": 2, "points": 120 },
     { "id": 4, "code": "MED", "name": "Medicina",         "gold": 4, "silver": 6, "bronze": 4, "points": 110 }
+  ],
+  "puntajesPorDisciplina": [
+    { "code": "ING", "name": "Ingeniería Civil", "discipline": "Fútbol",  "PJ": 5, "PG": 3, "PE": 1, "PP": 1 },
+    { "code": "MED", "name": "Medicina",         "discipline": "Fútbol",  "PJ": 5, "PG": 2, "PE": 2, "PP": 1 },
+    { "code": "ADM", "name": "Administración",   "discipline": "Fútbol",  "PJ": 5, "PG": 2, "PE": 1, "PP": 2 },
+    { "code": "DER", "name": "Derecho",          "discipline": "Fútbol",  "PJ": 5, "PG": 1, "PE": 1, "PP": 3 },
+    { "code": "ING", "name": "Ingeniería Civil", "discipline": "Básquetbol", "PJ": 4, "PG": 3, "PE": 0, "PP": 1 },
+    { "code": "MED", "name": "Medicina",         "discipline": "Básquetbol", "PJ": 4, "PG": 2, "PE": 1, "PP": 1 },
+    { "code": "ADM", "name": "Administración",   "discipline": "Básquetbol", "PJ": 4, "PG": 1, "PE": 1, "PP": 2 },
+    { "code": "DER", "name": "Derecho",          "discipline": "Básquetbol", "PJ": 4, "PG": 1, "PE": 0, "PP": 3 },
+    { "code": "SIS", "name": "Ingeniería de Sistemas", "discipline": "Voleibol", "PJ": 6, "PG": 4, "PE": 0, "PP": 2 },
+    { "code": "MED", "name": "Medicina",               "discipline": "Voleibol", "PJ": 6, "PG": 3, "PE": 1, "PP": 2 },
+    { "code": "ING", "name": "Ingeniería Civil",       "discipline": "Voleibol", "PJ": 6, "PG": 3, "PE": 0, "PP": 3 }
   ]
 }
