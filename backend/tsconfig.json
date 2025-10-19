@@ -1,0 +1,26 @@
+// backend/tsconfig.json
+{
+  "compilerOptions": {
+    // La versión de JS de salida. es2020 o es2022 es común para Node.js moderno.
+    "target": "es2020",
+    // El sistema de módulos que usa Node.js.
+    "module": "commonjs",
+    // Habilita la importación de módulos CommonJS (como Express) con sintaxis ES6 (import ... from ...).
+    "esModuleInterop": true,
+    // Dónde buscar el código fuente de TypeScript.
+    "rootDir": "./src",
+    // Dónde se guardará el código JavaScript compilado.
+    "outDir": "./dist",
+    // Activa todas las reglas estrictas (buena práctica, relacionado con no usar 'any').
+    "strict": true,
+    // Permite saltarse la verificación de tipos de librerías externas (como node_modules).
+    "skipLibCheck": true,
+    // Para que sepa cómo resolver módulos.
+    "moduleResolution": "node",
+    // No es estrictamente necesario, pero ayuda si usas la sintaxis ES6 de módulos.
+    "resolveJsonModule": true
+  },
+  // Le indica al compilador qué archivos debe incluir en el proceso.
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
