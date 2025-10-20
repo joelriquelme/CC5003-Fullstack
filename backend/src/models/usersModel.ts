@@ -10,14 +10,12 @@ interface UserData {
 const userSchema = new mongoose.Schema<UserData>({
   username: { type: String, required: true, unique: true },
   name: String,
-  passwordHash: String
+  passwordHash: String,
 });
-
-const User = mongoose.model("User", userSchema);
 
 userSchema.set("toJSON", {
   transform: (
-    document,
+    _document,
     returnedObject: {
       id?: string;
       _id?: mongoose.Types.ObjectId;
@@ -28,9 +26,7 @@ userSchema.set("toJSON", {
     returnedObject.id = returnedObject._id?.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
-    // the passwordHash should not be revealed
     delete returnedObject.passwordHash;
   },
 });
-
-export default User;
+export default mongoose.model("User", userSchema);
