@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import styles from './Header.module.css';
 import logo from '../../../assets/images/logo-mona.png';
 
-export type TabName = 'Calendario' | 'Medallas' | 'Puntajes' | 'Disciplinas';
+export type TabName = 'Calendario' | 'Medallas' | 'Puntajes' | 'Disciplinas' | 'None';
 
 export interface HeaderProps {
-    initialActiveTab?: TabName;
+    initialActiveTab?: TabName | 'None';
     onNavigate: (path: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ initialActiveTab = 'Calendario', onNavigate }) => {
-    const [activeTab, setActiveTab] = useState<TabName>(initialActiveTab);
+const Header: React.FC<HeaderProps> = ({ initialActiveTab = 'None', onNavigate }) => {
+    const [activeTab, setActiveTab] = useState<TabName | 'None'>(initialActiveTab);
 
     const handleTabClick = (tabName: TabName) => {
         setActiveTab(tabName);

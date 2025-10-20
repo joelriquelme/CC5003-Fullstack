@@ -6,6 +6,8 @@ import Disciplinas from "./components/pages/Disciplinas/Disciplinas.tsx"
 import Calendario from "./components/pages/Calendario/Calendario.tsx"
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
 
+const EmptyContent = () => <div className="mainContent" style={{ minHeight: '50vh' }}></div>;
+
 function App() {
   const navigate = useNavigate()
 
@@ -13,6 +15,7 @@ function App() {
     <>
       <Header onNavigate={navigate} />
       <Routes>
+        <Route path="/" element={<EmptyContent />} />
         <Route path="/medallero" element={<Medallero />} />
         <Route path="/puntajes" element={<Puntajes />} />  
         <Route path="/disciplinas" element={<Disciplinas />} />

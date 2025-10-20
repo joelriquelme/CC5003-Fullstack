@@ -1,16 +1,22 @@
 import dotenv from "dotenv";
-import express, { NextFunction, Request, Response } from "express";
-import path from "path";
+import express from "express";
 import mongoose from "mongoose";
 import config from "./utils/config";
 import logger from "./utils/logger";
+import disciplinesRouter from './routes/disciplinesRoutes'; 
+import departmentsRouter from './routes/departmentsRoutes'; 
+import matchesRouter from './routes/matchesRoutes';
 
 dotenv.config();
 
 const app = express();
 
-// middlewares
 app.use(express.json());
+
+app.use('/api/disciplinas', disciplinesRouter);
+app.use('/api/medalTable', departmentsRouter);
+app.use('/api/puntajesPorDisciplina', matchesRouter);
+
 
 mongoose.set("strictQuery", false);
 

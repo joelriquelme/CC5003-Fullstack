@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface MedalRow {
-  id: number;
+  id: string;
   code: string;
   name: string;
   gold: number;
@@ -29,24 +29,24 @@ export type DisciplineIcon =
   | "Taca-Taca";
 
 export interface DisciplineRow {
-  id: number;
+  id: string;
   name: string;
   days: string[];
   icon: DisciplineIcon;
 }
 
 const getPuntajesPorDisciplina = () => {
-  const request = axios.get("api/puntajesPorDisciplina");
+  const request = axios.get("/api/puntajesPorDisciplina");
   return request.then((res) => res.data);
 };
 
 const getMedalRows = () => {
-  const request = axios.get("api/medalTable");
+  const request = axios.get("/api/medalTable");
   return request.then((res) => res.data);
 };
 
 const getDisciplineRows = () => {
-  const request = axios.get("api/disciplinas");
+  const request = axios.get("/api/disciplinas");
   return request.then((res) => res.data);
 };
 

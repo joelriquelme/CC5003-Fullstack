@@ -32,6 +32,30 @@ The goal of this project is to provide clarity and transparency by publishing st
 
 ## Instalación y Ejecución
 
+### Backend 
+
+1. Navigate to the backend folder:
+
+cd backend
+
+2. Compile
+
+npm run build
+
+3. Run the server
+
+npm run dev
+
+4. Endpoints available:
+
+http://localhost:3001/medallero
+
+http://localhost:3001/puntajes
+
+http://localhost:3001/disciplinas
+
+http://localhost:3001/calendario
+
 ### Frontend
 
 1. Navega al directorio del frontend:
@@ -42,28 +66,12 @@ The goal of this project is to provide clarity and transparency by publishing st
 
 npm install
 
-3. Run development server:
+3. Compile
+
+npm run build
+
+4. Run development server:
 
 npm run dev
 
-4. Open the URL shown in the terminal (default: http://localhost:5173).
-
-### Backend (mock)
-
-1. Navigate to the backend folder:
-
-cd backend
-
-2. Run the mock server:
-
-npx json-server --watch db.json --port 3001
-
-3. Endpoints available:
-
-http://localhost:3001/medallero
-
-http://localhost:3001/puntajes
-
-http://localhost:3001/disciplinas
-
-http://localhost:3001/calendario
+5. Open the URL shown in the terminal (default: http://localhost:5173).

@@ -1,7 +1,8 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IMatch {
-    discipline: mongoose.Types.ObjectId;  
+    id: string;
+    discipline: string
     teamA: mongoose.Types.ObjectId;      
     teamB: mongoose.Types.ObjectId;
     date: Date;
@@ -10,11 +11,7 @@ export interface IMatch {
 }
 
 const matchSchema = new mongoose.Schema<IMatch>({
-    discipline: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Discipline', 
-        required: true
-    },
+    discipline: { type: String, required: true },
     teamA: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department',
