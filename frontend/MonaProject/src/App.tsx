@@ -11,7 +11,6 @@ import type { ReactElement } from "react";
 
 const EmptyContent = () => <div className="mainContent" style={{ minHeight: "50vh" }}></div>;
 
-// 🔒 RUTA PROTEGIDA
 function PrivateRoute({ children }: { children: ReactElement }) {
   const { user, loading } = useAuth();
   if (loading) return <p style={{ textAlign: "center" }}>Cargando sesión...</p>;

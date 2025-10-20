@@ -13,7 +13,6 @@ const Header: React.FC<HeaderProps> = ({ initialActiveTab = "None" }) => {
   const [activeTab, setActiveTab] = useState<TabName | "None">(initialActiveTab);
   const location = useLocation();
 
-  // 🔹 Actualiza el tab activo según la ruta actual
   React.useEffect(() => {
     if (location.pathname.includes("calendario")) setActiveTab("Calendario");
     else if (location.pathname.includes("medallero")) setActiveTab("Medallas");
@@ -29,7 +28,6 @@ const Header: React.FC<HeaderProps> = ({ initialActiveTab = "None" }) => {
         <h1 className={styles.siteTitle}>La Mona</h1>
       </div>
 
-      {/* 🔹 Barra de navegación */}
       <nav className={styles.navContainer}>
         <div className={styles.navButtons}>
           <Link
