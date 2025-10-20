@@ -1,5 +1,10 @@
 import axios from "axios";
 
+const api = axios.create({
+  baseURL: "http://localhost:3001/api", 
+  withCredentials: true,                
+});
+
 export interface MedalRow {
   id: string;
   code: string;
@@ -35,19 +40,28 @@ export interface DisciplineRow {
   icon: DisciplineIcon;
 }
 
-const getPuntajesPorDisciplina = () => {
-  const request = axios.get("/api/puntajesPorDisciplina");
-  return request.then((res) => res.data);
+export const getPuntajesPorDisciplina = async (): Promise<StandingRow[]> => {
+  const { data } = await api.get("/puntajesPorDisciplina");
+  return data;
 };
 
-const getMedalRows = () => {
-  const request = axios.get("/api/medalTable");
-  return request.then((res) => res.data);
+export const getMedalRows = async (): Promise<MedalRow[]> => {
+  const { data } = await api.get("/medalTable");
+  return data;
 };
 
-const getDisciplineRows = () => {
-  const request = axios.get("/api/disciplinas");
-  return request.then((res) => res.data);
+export const getDisciplineRows = async (): Promise<DisciplineRow[]> => {
+  const { data } = await api.get("/disciplinas");
+  return data;
 };
 
-export default { getPuntajesPorDisciplina, getMedalRows, getDisciplineRows };
+export const loginUser = async (username: string, password: string) => {
+  const { data } = await api.post("/login", { username, password });
+  return data;
+};
+
+export const getSession = async () => {
+  const { data } = await api.get("/auth/me");
+  return data;
+};
+export default api;
