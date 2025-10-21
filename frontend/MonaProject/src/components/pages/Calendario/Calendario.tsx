@@ -7,8 +7,7 @@ import {
   GiWaterSplash,
   GiTabletopPlayers,
 } from "react-icons/gi";
-import httpService from "../../../services/httpService";
-import type { DisciplineRow } from "../../../services/httpService";
+import httpService, { type DisciplineRow } from "../../../services/httpService"; 
 
 const iconMap = {
   Fútbol: <GiSoccerBall />,

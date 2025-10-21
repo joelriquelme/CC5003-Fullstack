@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios, { type AxiosInstance } from "axios"; 
 
-const api = axios.create({
+export const api: AxiosInstance = axios.create({
   baseURL: "http://localhost:3001/api", 
-  withCredentials: true,                
+  withCredentials: true, 
 });
 
 export interface MedalRow {
@@ -40,6 +40,7 @@ export interface DisciplineRow {
   icon: DisciplineIcon;
 }
 
+// Funciones de consulta específicas
 export const getPuntajesPorDisciplina = async (): Promise<StandingRow[]> => {
   const { data } = await api.get("/puntajesPorDisciplina");
   return data;
@@ -60,8 +61,12 @@ export const loginUser = async (username: string, password: string) => {
   return data;
 };
 
-export const getSession = async () => {
-  const { data } = await api.get("/auth/me");
-  return data;
+
+const httpService = {
+    getPuntajesPorDisciplina,
+    getMedalRows,
+    getDisciplineRows,
+    loginUser,
 };
-export default api;
+
+export default httpService;

@@ -10,7 +10,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./services/useAuth";
 import type { ReactElement } from "react";
 
-const EmptyContent = () => <div className="mainContent" style={{ minHeight: "50vh" }}></div>;
 
 function PrivateRoute({ children }: { children: ReactElement }) {
   const { user, loading } = useAuth();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "./httpService";
+import { api } from "./httpService"; 
 
 export interface User {
   username: string;
