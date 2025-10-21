@@ -5,6 +5,7 @@ import Puntajes from "./components/pages/Puntajes/Puntajes";
 import Disciplinas from "./components/pages/Disciplinas/Disciplinas";
 import Calendario from "./components/pages/Calendario/Calendario";
 import Login from "./components/pages/Login/Login";
+import Register from "./components/pages/Register/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./services/useAuth";
 import type { ReactElement } from "react";
@@ -22,8 +23,9 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<EmptyContent />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/calendario"
           element={

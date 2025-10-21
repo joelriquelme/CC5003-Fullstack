@@ -17,15 +17,15 @@ The goal of this project is to provide clarity and transparency by publishing st
   - React Router
   - CSS Modules
 
-- Backend (mock)
-  - json-server
+- Backend
+  - Express
 
 ---
 
 ## Estructura del Repositorio
 
 - /frontend → Aplicación SPA desarrollada con React
-- /backend → Servidor mock con json-server, incluye db.json y rutas personalizadas
+- /backend → Servidor Express que sirve datos estáticos en formato JSON
 - README.md → Este archivo
 
 ---
@@ -33,6 +33,15 @@ The goal of this project is to provide clarity and transparency by publishing st
 ## Instalación y Ejecución
 
 ### Backend 
+
+Crear un archivo .env en la carpeta backend con el siguiente contenido:
+
+```
+MONGODB_URI=mongodb://127.0.0.1:27017/app
+TEST_MONGODB_URI=mongodb://127.0.0.1:27017/app_test
+PORT=3001
+MONGODB_DBNAME=app
+```
 
 1. Navigate to the backend folder:
 

@@ -42,6 +42,7 @@ export default function Login() {
         <button className="bg-blue-500 text-white p-2 rounded">Entrar</button>
       </form>
       {error && <p className="text-red-500 mt-2">{error}</p>}
+      <p className="mt-4">¿No tienes cuenta? <a href="/register" className="text-blue-500">Regístrate</a></p>
     </div>
   );
 }
