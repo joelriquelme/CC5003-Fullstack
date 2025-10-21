@@ -1,14 +1,14 @@
 # CC5003-Fullstack
 
-# La Mona – Interdepartmental Tournament Platform
+# La Mona – Plataforma del Torneo Interdepartamental
 
-A **fullstack application** (React + json-server) to centralize the information of the Faculty’s Interdepartmental Tournament **"La Mona"**.
+Una **aplicación fullstack** (React + json-server) para centralizar la información del Torneo Interdepartamental de la Facultad **"La Mona"**.
 
-The goal of this project is to provide clarity and transparency by publishing statistics, match schedules, results, medal standings, and general rankings in a single platform.
+El objetivo de este proyecto es entregar claridad y transparencia publicando estadísticas, calendarios de partidos, resultados, tabla de medallas y ranking general en una sola plataforma.
 
 ---
 
-## Tech Stack
+## Stack Tecnológico
 
 - Frontend
 
@@ -25,14 +25,14 @@ The goal of this project is to provide clarity and transparency by publishing st
 ## Estructura del Repositorio
 
 - /frontend → Aplicación SPA desarrollada con React
-- /backend → Servidor Express que sirve datos estáticos en formato JSON
+- /backend → Servidor Express que entrega datos estáticos en formato JSON
 - README.md → Este archivo
 
 ---
 
 ## Instalación y Ejecución
 
-### Backend 
+### Backend
 
 Crear un archivo .env en la carpeta backend con el siguiente contenido:
 
@@ -43,19 +43,19 @@ PORT=3001
 MONGODB_DBNAME=app
 ```
 
-1. Navigate to the backend folder:
+1. Navega a la carpeta backend:
 
 cd backend
 
-2. Compile
+2. Compila el proyecto
 
 npm run build
 
-3. Run the server
+3. Ejecuta el servidor
 
 npm run dev
 
-4. Endpoints available:
+4. Endpoints disponibles:
 
 http://localhost:3001/medallero
 
@@ -65,22 +65,53 @@ http://localhost:3001/disciplinas
 
 http://localhost:3001/calendario
 
+http://localhost:3001/auth/me
+
+http://localhost:3001/users
+
+http://localhost:3001/login
+
+http://localhost:3001/register
+
+### Población de la Base de Datos
+
+La base de datos no está poblada por defecto. Puedes agregar algunos datos de ejemplo utilizando Postman:
+
+endpoint:
+```
+http://127.0.0.1:3001/api/medalTable
+```
+
+body:
+
+```json
+{
+  "code": "ING",
+  "name": "Ingeniería Civil",
+  "gold": 7,
+  "silver": 3,
+  "bronze": 2,
+  "points": 140
+}
+```
+
 ### Frontend
 
 1. Navega al directorio del frontend:
 
    cd frontend/MonaProject
 
-2. Install dependencies:
+2. Instala las dependencias:
 
 npm install
 
-3. Compile
+3. Compila el proyecto
 
 npm run build
 
-4. Run development server:
+4. Ejecuta el servidor de desarrollo:
 
 npm run dev
 
-5. Open the URL shown in the terminal (default: http://localhost:5173).
+5. Abre la URL que aparece en la terminal (por defecto: http://localhost:5173).
+
