@@ -18,11 +18,11 @@ const disciplineSchema = new mongoose.Schema<IDiscipline>({
 const Discipline = mongoose.model('Discipline', disciplineSchema);
 
 disciplineSchema.set("toJSON", {
-  transform: (document, returnedObject: { id?: string; _id?: mongoose.Types.ObjectId; __v?: number }) => {
-    returnedObject.id = returnedObject._id?.toString(); 
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
+  transform: (document, returnedObject: { id?: string; _id?: mongoose.Types.ObjectId; __v?: number }) => {
+    returnedObject.id = returnedObject._id?.toString(); 
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
 });
 
 export default Discipline;

@@ -12,6 +12,7 @@ import matchesRouter from "./routes/matchesRoutes";
 import usersRouter from "./routes/usersRoutes";
 import loginRouter from "./routes/loginRoutes";
 import authRouter from "./routes/authRoutes";
+import testingRouter from "./routes/testingRoutes";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,9 @@ app.use("/api/puntajesPorDisciplina", matchesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/auth", authRouter);
+if (process.env.NODE_ENV === "test") {
+  app.use("/api/testing", testingRouter);
+}
 mongoose.set("strictQuery", false);
 
 if (config.MONGODB_URI) {
