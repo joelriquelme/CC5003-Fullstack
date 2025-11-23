@@ -28,7 +28,17 @@ router.post("/", async (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
   res.setHeader("X-CSRF-Token", csrf);
-  res.status(200).json({ username: user.username, name: user.name });
+
+  res.status(200).json({
+    user: {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+    },
+    token,
+    csrf,
+  });
+
 });
 
 export default router;

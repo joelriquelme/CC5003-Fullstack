@@ -13,11 +13,12 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
     try {
       const data = await httpService.loginUser(username, password);
 
       login(data.user, data.token);
-
       navigate("/disciplinas"); 
     } catch (err) {
       console.error(err);

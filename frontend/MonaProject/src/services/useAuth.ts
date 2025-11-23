@@ -16,7 +16,7 @@ export function useAuth() {
     api
       .get("/auth/me")
       .then((res) => {
-        login(res.data.user, res.data.token);
+        login(res.data.user,  token ?? "");
       })
       .catch(() => {
         logout();

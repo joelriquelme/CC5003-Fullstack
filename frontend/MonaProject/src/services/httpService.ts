@@ -5,6 +5,16 @@ export const api: AxiosInstance = axios.create({
   withCredentials: true, 
 });
 
+// guarda el CSRF que manda el backend en cada respuesta
+api.interceptors.response.use((response) => {
+  const csrfToken = response.headers["x-csrf-token"] as string | undefined;
+  if (csrfToken) {
+    api.defaults.headers.common["X-CSRF-Token"] = csrfToken;
+  }
+  return response;
+});
+
+
 export interface MedalRow {
   id: string;
   code: string;
