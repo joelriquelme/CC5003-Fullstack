@@ -6,25 +6,25 @@ import Disciplinas from "./components/pages/Disciplinas/Disciplinas";
 import Calendario from "./components/pages/Calendario/Calendario";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
+import PrivateRoute from "./services/PrivateRoute";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./services/useAuth";
-import type { ReactElement } from "react";
-
-
-function PrivateRoute({ children }: { children: ReactElement }) {
-  const { user, loading } = useAuth();
-  if (loading) return <p style={{ textAlign: "center" }}>Cargando sesión...</p>;
-  return user ? children : <Navigate to="/login" replace />;
-}
 
 function App() {
+  const { user } = useAuth();
+
   return (
-    <>
+    <BrowserRouter>
       <Header />
+
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route
+          path="/"
+          element={user ? <Navigate to="/calendario" /> : <Login />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         <Route
           path="/calendario"
           element={
@@ -57,16 +57,11 @@ function App() {
             </PrivateRoute>
           }
         />
+
         <Route path="*" element={<p>Página no encontrada</p>} />
       </Routes>
-    </>
-  );
-}
-
-export default function AppWrapper() {
-  return (
-    <BrowserRouter>
-      <App />
     </BrowserRouter>
   );
 }
+
+export default App;

@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../../assets/images/logo-mona.png";
+import { useAuthStore } from "../../../store/authStore";
 
-export type TabName = "Calendario" | "Medallas" | "Puntajes" | "Disciplinas" | "None";
+export type TabName =
+  | "Calendario"
+  | "Medallas"
+  | "Puntajes"
+  | "Disciplinas"
+  | "None";
 
-export interface HeaderProps {
-  initialActiveTab?: TabName | "None";
-}
-
-const Header: React.FC<HeaderProps> = ({ initialActiveTab = "None" }) => {
-  const [activeTab, setActiveTab] = useState<TabName | "None">(initialActiveTab);
+const Header: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabName | "None">("None");
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   React.useEffect(() => {
     if (location.pathname.includes("calendario")) setActiveTab("Calendario");
@@ -21,6 +27,11 @@ const Header: React.FC<HeaderProps> = ({ initialActiveTab = "None" }) => {
     else setActiveTab("None");
   }, [location.pathname]);
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
@@ -28,41 +39,51 @@ const Header: React.FC<HeaderProps> = ({ initialActiveTab = "None" }) => {
         <h1 className={styles.siteTitle}>La Mona</h1>
       </div>
 
-      <nav className={styles.navContainer}>
-        <div className={styles.navButtons}>
-          <Link
-            to="/calendario"
-            className={`${styles.navButton} ${activeTab === "Calendario" ? styles.active : ""}`}
-            onClick={() => setActiveTab("Calendario")}
-          >
-            Calendario
-          </Link>
+      {user && (
+        <nav className={styles.navContainer}>
+          <div className={styles.navButtons}>
+            <Link
+              to="/calendario"
+              className={`${styles.navButton} ${
+                activeTab === "Calendario" ? styles.active : ""
+              }`}
+            >
+              Calendario
+            </Link>
 
-          <Link
-            to="/medallero"
-            className={`${styles.navButton} ${activeTab === "Medallas" ? styles.active : ""}`}
-            onClick={() => setActiveTab("Medallas")}
-          >
-            Medallas
-          </Link>
+            <Link
+              to="/medallero"
+              className={`${styles.navButton} ${
+                activeTab === "Medallas" ? styles.active : ""
+              }`}
+            >
+              Medallas
+            </Link>
 
-          <Link
-            to="/puntajes"
-            className={`${styles.navButton} ${activeTab === "Puntajes" ? styles.active : ""}`}
-            onClick={() => setActiveTab("Puntajes")}
-          >
-            Puntajes
-          </Link>
+            <Link
+              to="/puntajes"
+              className={`${styles.navButton} ${
+                activeTab === "Puntajes" ? styles.active : ""
+              }`}
+            >
+              Puntajes
+            </Link>
 
-          <Link
-            to="/disciplinas"
-            className={`${styles.navButton} ${activeTab === "Disciplinas" ? styles.active : ""}`}
-            onClick={() => setActiveTab("Disciplinas")}
-          >
-            Disciplinas
-          </Link>
-        </div>
-      </nav>
+            <Link
+              to="/disciplinas"
+              className={`${styles.navButton} ${
+                activeTab === "Disciplinas" ? styles.active : ""
+              }`}
+            >
+              Disciplinas
+            </Link>
+
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Cerrar sesión
+            </button>
+          </div>
+        </nav>
+      )}
     </header>
   );
 };
