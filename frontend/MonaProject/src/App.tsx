@@ -12,7 +12,19 @@ import { useAuth } from "./services/useAuth";
 import AdminPanel from "./components/pages/Admin/Admin";
 
 function App() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  if (loading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh' 
+      }}>
+        <p>Cargando...</p>
+      </div>
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -21,10 +33,17 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={user ? <Navigate to="/calendario" /> : <Login />}
+          element={user ? <Navigate to="/calendario" replace /> : <Navigate to="/login" replace />}
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        
+        <Route 
+          path="/login" 
+          element={user ? <Navigate to="/calendario" replace /> : <Login />} 
+        />
+        <Route 
+          path="/register" 
+          element={user ? <Navigate to="/calendario" replace /> : <Register />} 
+        />
 
         <Route
           path="/calendario"
@@ -66,8 +85,7 @@ function App() {
             </PrivateRoute>
           }
         />
-
-        <Route path="*" element={<p>Página no encontrada</p>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
