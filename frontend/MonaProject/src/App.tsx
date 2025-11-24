@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Header from "./components/layout/Header/Header";
 import Medallero from "./components/pages/Medallero/Medallero";
