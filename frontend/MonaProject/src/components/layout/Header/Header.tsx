@@ -9,6 +9,7 @@ export type TabName =
   | "Medallas"
   | "Puntajes"
   | "Disciplinas"
+  | "Admin"
   | "None";
 
 const Header: React.FC = () => {
@@ -24,8 +25,16 @@ const Header: React.FC = () => {
     else if (location.pathname.includes("medallero")) setActiveTab("Medallas");
     else if (location.pathname.includes("puntajes")) setActiveTab("Puntajes");
     else if (location.pathname.includes("disciplinas")) setActiveTab("Disciplinas");
+    else if (location.pathname.includes("admin")) setActiveTab("Admin");
     else setActiveTab("None");
   }, [location.pathname]);
+
+  const showAdmin = Boolean(
+    user &&
+      (
+        (typeof user.username === "string" && user.username.toLowerCase().includes("admin"))
+      )
+  );
 
   const handleLogout = () => {
     logout();
@@ -77,6 +86,17 @@ const Header: React.FC = () => {
             >
               Disciplinas
             </Link>
+
+            {showAdmin && (
+              <Link
+                to="/admin"
+                className={`${styles.navButton} ${
+                  activeTab === "Admin" ? styles.active : ""
+                }`}
+              >
+                Admin
+              </Link>
+            )}
 
             <button className={styles.logoutButton} onClick={handleLogout}>
               Cerrar sesión
