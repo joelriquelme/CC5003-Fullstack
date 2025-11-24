@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getStandings, create, getAll } from "../controllers/matchControllers";
+import { getStandings, create, getAll, createStanding } from "../controllers/matchControllers";
 
 const router = Router();
 
 router.get("/", getStandings);  
-router.post("/", create);
+router.post("/", createStanding); 
 
 export default router;

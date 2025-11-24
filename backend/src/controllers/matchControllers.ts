@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Match, { IMatch } from '../models/matchesModel'; 
+import Standing from '../models/standingModels';
+
 
 export const getAll = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -31,13 +33,17 @@ export const getOne = async (req: Request, res: Response, next: NextFunction): P
 
 export const getStandings = async (_req: Request, res: Response, next: NextFunction) => {
   try {
+    // Obtener puntajes manuales de la BD
+    const manualStandings = await Standing.find({}).lean();
+    
+    // Calcular desde matches (tu código existente)
     const matches = await Match.find({})
-      .populate("discipline", "name")  // { _id, name }
-      .populate("teamA", "code name")  // { _id, code, name }
-      .populate("teamB", "code name")  // { _id, code, name }
+      .populate("discipline", "name")
+      .populate("teamA", "code name")
+      .populate("teamB", "code name")
       .lean();
 
-    type Key = string; // `${code}|${discipline}`
+    type Key = string;
     const table = new Map<Key, { code:string; name:string; discipline:string; PJ:number; PG:number; PE:number; PP:number }>();
 
     const add = (code:string, name:string, discipline:string, pj:number, pg:number, pe:number, pp:number) => {
@@ -53,7 +59,6 @@ export const getStandings = async (_req: Request, res: Response, next: NextFunct
       const aCode = A?.code ?? "", aName = A?.name ?? "";
       const bCode = B?.code ?? "", bName = B?.name ?? "";
 
-      // calcula resultado
       const aWin = Number(m.scoreA) > Number(m.scoreB);
       const draw = Number(m.scoreA) === Number(m.scoreB);
       const bWin = Number(m.scoreB) > Number(m.scoreA);
@@ -62,8 +67,14 @@ export const getStandings = async (_req: Request, res: Response, next: NextFunct
       add(bCode, bName, disc, 1, bWin ? 1 : 0, draw ? 1 : 0, aWin ? 1 : 0);
     }
 
-    res.json(Array.from(table.values()));
-  } catch (e) { next(e); }
+    // Combinar calculados con manuales
+    const calculated = Array.from(table.values());
+    const combined = [...manualStandings, ...calculated];
+
+    res.json(combined);
+  } catch (e) {
+    next(e);
+  }
 };
 
 
@@ -107,4 +118,30 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
         await Match.findByIdAndDelete(req.params.id);
         res.status(204).end(); 
     } catch (error) { next(error); }
+};
+
+export const createStanding = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const { code, name, discipline, PJ, PG, PE, PP } = req.body;
+
+  if (!code || !name || !discipline) {
+    res.status(400).json({ error: 'Faltan campos: code, name, discipline' });
+    return;
+  }
+
+  try {
+    const newStanding = new Standing({
+      code,
+      name,
+      discipline,
+      PJ: PJ || 0,
+      PG: PG || 0,
+      PE: PE || 0,
+      PP: PP || 0
+    });
+    
+    const saved = await newStanding.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    next(error);
+  }
 };
