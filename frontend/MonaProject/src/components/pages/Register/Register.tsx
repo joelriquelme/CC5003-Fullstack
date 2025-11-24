@@ -19,7 +19,7 @@ export default function Register() {
       await api.post("/users", { username, name, password });
       setSuccess("Usuario creado exitosamente");
       setTimeout(() => {
-        navigate("/login");
+        navigate("/login", { replace: true });
       }, 2000);
     } catch (err: any) {
       if (err.response?.data?.error) {

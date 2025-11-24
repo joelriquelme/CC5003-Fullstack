@@ -22,7 +22,7 @@ export default function Login() {
       login(data.user, data.token);
 
       setTimeout(() => {
-        navigate("/calendario");
+        navigate("/calendario", { replace: true });
       }, 100);
     } catch (err) {
       console.error(err);
