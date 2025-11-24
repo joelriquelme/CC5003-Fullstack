@@ -10,24 +10,36 @@ interface AuthState {
   setLoading: (value: boolean) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  token: null,
-  loading: true,
+const loadFromStorage = () => {
+  try {
+    const stored = localStorage.getItem("auth");
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (error) {
+    console.error("Error loading auth from storage:", error);
+  }
+  return { user: null, token: null };
+};
 
-  login: (user, token) =>
-    set({
-      user,
-      token,
-      loading: false,
-    }),
+export const useAuthStore = create<AuthState>((set) => {
+  const initial = loadFromStorage();
+  
+  return {
+    user: initial.user || null,
+    token: initial.token || null,
+    loading: true,
 
-  logout: () =>
-    set({
-      user: null,
-      token: null,
-      loading: false,
-    }),
+    login: (user, token) => {
+      localStorage.setItem("auth", JSON.stringify({ user, token }));
+      set({ user, token, loading: false });
+    },
 
-  setLoading: (value) => set({ loading: value }),
-}));
+    logout: () => {
+      localStorage.removeItem("auth");
+      set({ user: null, token: null, loading: false });
+    },
+
+    setLoading: (value) => set({ loading: value }),
+  };
+});

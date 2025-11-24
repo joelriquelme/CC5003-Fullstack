@@ -11,10 +11,12 @@ router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
-  if (!user) return res.status(401).json({ error: "invalid username or password" });
+  if (!user)
+    return res.status(401).json({ error: "invalid username or password" });
 
   const passwordCorrect = await bcrypt.compare(password, user.passwordHash);
-  if (!passwordCorrect) return res.status(401).json({ error: "invalid username or password" });
+  if (!passwordCorrect)
+    return res.status(401).json({ error: "invalid username or password" });
 
   const csrf = crypto.randomUUID();
   const token = jwt.sign(
@@ -27,18 +29,14 @@ router.post("/", async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
   });
-  res.setHeader("X-CSRF-Token", csrf);
 
   res.status(200).json({
     user: {
-      id: user.id,
       username: user.username,
       name: user.name,
     },
     token,
-    csrf,
   });
-
 });
 
 export default router;
