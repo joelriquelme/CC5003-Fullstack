@@ -50,7 +50,6 @@ export interface DisciplineRow {
   icon: DisciplineIcon;
 }
 
-// Funciones de consulta específicas
 export const getPuntajesPorDisciplina = async (): Promise<StandingRow[]> => {
   const { data } = await api.get("/puntajesPorDisciplina");
   return data;

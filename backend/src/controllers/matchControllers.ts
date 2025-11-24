@@ -33,10 +33,8 @@ export const getOne = async (req: Request, res: Response, next: NextFunction): P
 
 export const getStandings = async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    // Obtener puntajes manuales de la BD
     const manualStandings = await Standing.find({}).lean();
     
-    // Calcular desde matches (tu código existente)
     const matches = await Match.find({})
       .populate("discipline", "name")
       .populate("teamA", "code name")
@@ -67,7 +65,6 @@ export const getStandings = async (_req: Request, res: Response, next: NextFunct
       add(bCode, bName, disc, 1, bWin ? 1 : 0, draw ? 1 : 0, aWin ? 1 : 0);
     }
 
-    // Combinar calculados con manuales
     const calculated = Array.from(table.values());
     const combined = [...manualStandings, ...calculated];
 
