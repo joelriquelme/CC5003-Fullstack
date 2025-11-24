@@ -24,6 +24,7 @@ export default function AdminPanel() {
 
   // Puntajes
   const [pCode, setPCode] = useState("");
+  const [pName, setPName] = useState("");
   const [pDiscipline, setPDiscipline] = useState("");
   const [PJ, setPJ] = useState<string>("");
   const [PG, setPG] = useState<string>("");
@@ -71,6 +72,7 @@ export default function AdminPanel() {
     try {
       const body = {
         code: pCode,
+        name: pName,
         discipline: pDiscipline,
         PJ: Number(PJ) || 0,
         PG: Number(PG) || 0,
@@ -199,6 +201,11 @@ export default function AdminPanel() {
                   <Form.Group className="mb-2" controlId="pCode">
                     <Form.Label className="small">Código carrera</Form.Label>
                     <Form.Control value={pCode} onChange={(e) => setPCode(e.target.value)} placeholder="ING" required />
+                  </Form.Group>
+
+                  <Form.Group className="mb-2" controlId="pName">
+                    <Form.Label className="small">Nombre</Form.Label>
+                    <Form.Control value={pName} onChange={(e) => setPName(e.target.value)} placeholder="Ingeniería" required />
                   </Form.Group>
 
                   <Form.Group className="mb-2" controlId="pDiscipline">
