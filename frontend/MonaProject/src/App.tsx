@@ -9,6 +9,7 @@ import Register from "./components/pages/Register/Register";
 import PrivateRoute from "./services/PrivateRoute";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./services/useAuth";
+import AdminPanel from "./components/pages/Admin/Admin";
 
 function App() {
   const { user } = useAuth();
@@ -54,6 +55,14 @@ function App() {
           element={
             <PrivateRoute>
               <Disciplinas />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <AdminPanel />
             </PrivateRoute>
           }
         />
