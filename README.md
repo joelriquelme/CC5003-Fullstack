@@ -1,10 +1,90 @@
 # CC5003-Fullstack
 
-# La Mona – Plataforma del Torneo Interdepartamental
+## Tema general del proyecto
 
-Una **aplicación fullstack** (React + json-server) para centralizar la información del Torneo Interdepartamental de la Facultad **"La Mona"**.
+## La Mona – Plataforma del Torneo Interdepartamental
+
+Una **aplicación fullstack** para centralizar la información del Torneo Interdepartamental de la Facultad **"La Mona"**.
 
 El objetivo de este proyecto es entregar claridad y transparencia publicando estadísticas, calendarios de partidos, resultados, tabla de medallas y ranking general en una sola plataforma.
+
+Aplicación que simula la centralización de la información del Torneo de la U "La Mona" a través de un formato de medallero, similar a los Juegos Panamericanos del 2023: https://results-santiago2023.org/
+
+El Backend tiene endpoints para disciplinas, tabla de medallas, puntajes por disciplina, usuarios y autenticación, mientras que el Frontend es una SPA que consume estos datos y permite la interacción del usuario, usa React Router para la navegación.
+
+La aplicación tiene registro e inicio de sesión de usuarios, visualización de medallero, puntajes por disciplina, calendario y listados de disciplinas.
+
+## Estructura del estado global (librería usada y stores)
+
+Para manejar el estado global se utilizó Zustand. La aplicación cuenta con dos stores principales: uno para la sesión del usuario y otro para las disciplinas.
+
+El store de autenticación mantiene los datos del usuario, el token y un indicador de carga. Además, guarda esta información en localStorage para que la sesión no se pierda al recargar la página. Cuando la aplicación inicia, useAuth() revisa si existía información previa y consulta al backend para verificar si el token sigue siendo válido. Si todo está correcto, mantiene la sesión; si no, ejecuta un logout.
+El segundo store corresponde a las disciplinas. Este store almacena la lista completa de disciplinas que la aplicación utiliza en distintas vistas como Calendario, Disciplinas y Puntajes. Gracias a esto, se evita repetir peticiones al servidor y se mantiene la información centralizada y accesible desde cualquier parte de la app.
+
+Arquitectura de datos y compartición de estado:
+
+- Los datos se obtienen a través del `httpService`. Cada página mantiene su propio estado local (useState/useEffect) y usa el `httpService` para poblar las vistas con la data.
+
+- Para la sesión y el token usamos el store de Zustand, que nos permite acceder rápido a `user` y `token` desde cualquier componente sin hacer prop-drilling.
+
+## Mapa de rutas y flujo de autenticación
+
+Para las rutas se usó React Router v6. Se separaron rutas públicas y rutas privadas.
+Las rutas públicas son el login, el registro y la raíz (/). Si el usuario ya está logueado y trata de ir al login o al register, la app lo manda directo al calendario para que no vuelva a la pantalla de inicio.
+Todas las páginas “importantes” están protegidas con PrivateRoute, que revisa si hay usuario en el store. Si no lo hay, te tira al login. Además, se usó replace: true en las redirecciones clave para evitar que el usuario pueda hacer “volver” en el navegador y entrar a una vista protegida después de cerrar sesión.
+También funciona bien cuando recargas la página (F5), porque la sesión persiste en localStorage y luego se valida con el backend usando /auth/me.
+
+Rutas principales:
+
+- GET / -> mensaje de saludo (health check)
+- /disciplinas -> rutas de disciplinas
+- /medalTable -> rutas de departamentos / tabla de medallas
+- /puntajesPorDisciplina -> rutas de matches/puntajes por disciplina
+- /users -> rutas de usuarios (registro, listado, etc.)
+- /login -> autenticación (login)
+- /auth -> endpoints protegidos relacionados con la sesión (ej. `/me`)
+- /api/testing -> endpoints de test (registrados sólo en NODE_ENV=test)
+
+Flujo de autenticación:
+
+- El usuario manda el username y su password.
+- El backend valida las credenciales en `users` de mongoose y, si son válidas:
+- Genera un JWT que incluye { username, id, csrf } y lo firma con `JWT_SECRET`.
+- Envía la cookie `token` (httpOnly) y devuelve la cabecera `X-CSRF-Token` con el valor `csrf` para que el usuario la use en sus siguientes peticiones.
+
+Está el middleware `withUser` en `auth.ts` que:
+
+- Lee la cookie `token`, verifica el JWT y compara el `csrf` del token con el header `x-csrf-token` de la petición.
+- Si coinciden, inyecta `userId` en `req` y permite el acceso; si no, manda un 401.
+
+## Descripción de los tests E2E (herramienta usada, flujos cubiertos)
+
+Usamos playwright para los tests E2E.
+
+Flujos y comportamiento de los tests:
+
+1. Antes de cada test se resetea la base de datos de prueba haciendo un POST a `http://localhost:3001/api/testing/reset`.
+2. Creamos un usuario de prueba con un POST a `http://localhost:3001/api/users`.
+
+Se cubrieron los siguientes casos para el login:
+
+- Registro exitoso de usuario (navegar a `/register`, completar formulario, verificar mensaje "Usuario creado exitosamente" y retorno al login).
+- Login fallido con un usuario inexistente (debe mostrar el texto "Credenciales inválidas").
+- Login exitoso con un usuario válido (rellena y envía el formulario, luego vuelve a la página principal).
+
+Se cubrieron los siguientes casos para el medallero:
+
+- Visualización del medallero (verifica que la tabla aparece y contiene datos).
+
+## Librería de estilos utilizada y decisiones de diseño
+
+Utilizamos principalmente CSS para los estilos, sin depender de frameworks CSS como MUI, Mantine o Tailwind, para mantener un formato más simple.
+
+Se usó React-Bootstrap junto al CSS oficial de Bootstrap para construir layouts responsivos rápidamente y mantener una apariencia consistente. Como alternativa, se usaron CSS Modules para aplicar estilos locales sin depender de librerías externas.
+
+Se mantuvo una jerarquía visual clara: encabezados visibles, un color de acento para acciones importantes y tarjetas con sombra y bordes redondeados. Se intentó utilizar los colores representativos del CDI para tener una coherencia visual.
+
+En los formularios se usaron labels visibles, placeholders solo como apoyo y validaciones básicas (required, number, min=0). Para los mensajes de éxito y error se evitó utilizar alerts para no depender del navegador del usuario.
 
 ---
 
@@ -20,39 +100,6 @@ El objetivo de este proyecto es entregar claridad y transparencia publicando est
 
 - Backend
   - Express
-
-## Estructura del estado global (librería usada y stores).
-
-Para manejar el estado global se utilizó Zustand. La aplicación cuenta con dos stores principales: uno para la sesión del usuario y otro para las disciplinas.
-
-El store de autenticación mantiene los datos del usuario, el token y un indicador de carga. Además, guarda esta información en localStorage para que la sesión no se pierda al recargar la página. Cuando la aplicación inicia, useAuth() revisa si existía información previa y consulta al backend para verificar si el token sigue siendo válido. Si todo está correcto, mantiene la sesión; si no, ejecuta un logout.
-El segundo store corresponde a las disciplinas. Este store almacena la lista completa de disciplinas que la aplicación utiliza en distintas vistas como Calendario, Disciplinas y Puntajes. Gracias a esto, se evita repetir peticiones al servidor y se mantiene la información centralizada y accesible desde cualquier parte de la app.
-
-
-## Mapa de rutas y flujo de autenticación.
-
-Para las rutas se usó React Router v6. Se separaron rutas públicas y rutas privadas.
-Las rutas públicas son el login, el registro y la raíz (/). Si el usuario ya está logueado y trata de ir al login o al register, la app lo manda directo al calendario para que no vuelva a la pantalla de inicio.
-Todas las páginas “importantes” están protegidas con PrivateRoute, que revisa si hay usuario en el store. Si no lo hay, te tira al login. Además, se usó replace: true en las redirecciones clave para evitar que el usuario pueda hacer “volver” en el navegador y entrar a una vista protegida después de cerrar sesión.
-También funciona bien cuando recargas la página (F5), porque la sesión persiste en localStorage y luego se valida con el backend usando /auth/me.
-
-## Descripción de los tests E2E (herramienta usada, flujos cubiertos).
-
-## Librería de estilos utilizada y decisiones de diseño.
-
-Se usó React-Bootstrap junto al CSS oficial de Bootstrap para construir layouts responsivos rápidamente y mantener una apariencia consistente. Como alternativa, se usaron CSS Modules para aplicar estilos locales sin depender de librerías externas.
-
-Se mantuvo una jerarquía visual clara: encabezados visibles, un color de acento para acciones importantes y tarjetas con sombra y bordes redondeados. Se intentó utilizar los colores representativos del CDI para tener una coherencia visual.
-
-En los formularios se usaron labels visibles, placeholders solo como apoyo y validaciones básicas (required, number, min=0). Para los mensajes de éxito y error se evitó utilizar alerts para no depender del navegador del usuario.
-
-
-## Estructura del Repositorio
-
-- /frontend → Aplicación SPA desarrollada con React
-- /backend → Servidor Express que entrega datos estáticos en formato JSON
-- /e2e -> Pruebas End to End
-- README.md → Este archivo
 
 ---
 
@@ -104,6 +151,7 @@ http://localhost:3001/register
 La base de datos no está poblada por defecto. Puedes agregar algunos datos de ejemplo utilizando Postman:
 
 endpoint:
+
 ```
 http://127.0.0.1:3001/api/medalTable
 ```
@@ -140,4 +188,3 @@ npm run build
 npm run dev
 
 5. Abre la URL que aparece en la terminal (por defecto: http://localhost:5173).
-
